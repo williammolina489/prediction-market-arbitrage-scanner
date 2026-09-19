@@ -30,3 +30,18 @@ Either issue is sufficient to fail closed.
 
 ## Exact next step
 Do not build or run the E001 collector. Any move to a different category, a different relationship structure, or a redefined guarantee would require a separately documented preregistration amendment/new experiment decision before any evidence is viewed.
+
+
+## E003 — Prospective Nested-Threshold Arbitrage Census
+
+Status: STOP / REJECT — PAYOFF INVARIANT UNPROVABLE
+Research date: 2026-09-19
+Branch: research/e003-nested-thresholds
+
+E003 investigated same-event ordered BTC threshold contracts in Kalshi series KXBTCD. Under ordinary binary settlement, two markets with the same settlement variable and operator and thresholds L < H have the implication event(H) => event(L), so YES(lower) + NO(higher) has a minimum binary-state payoff of $1 per matched pair.
+
+The full contractual state space is broader. BTC contract terms expressly permit Kalshi to initiate Market Outcome Review pursuant to Rule 6.3(c). Current Rule 6.3(c) permits Kalshi, when ordinary determination is not possible, to determine proportional payouts using the contract's last traded price or a binding fair allocation determined by the Outcome Review Committee. No authoritative rule located requires those exceptional proportional payouts to remain monotone across strikes of one KXBTCD event.
+
+For exceptional YES payouts p_L and p_H, the proposed pair pays p_L + (1 - p_H) = 1 + p_L - p_H. A $1 floor therefore requires p_L >= p_H in every permitted review outcome. That invariant is not established by the current rules.
+
+No E003 profitability evidence was viewed. E003 was stopped before preregistration, economic parameter selection, code implementation, collector construction, or any credential use.
