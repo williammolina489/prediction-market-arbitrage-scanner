@@ -1,7 +1,7 @@
 import hashlib
 import json
 from dataclasses import dataclass
-from decimal import Decimal, ROUND_CEILING
+from decimal import ROUND_CEILING, Decimal
 from enum import StrEnum
 from typing import Any
 
@@ -152,7 +152,7 @@ def parse_book(payload: dict[str, Any]) -> Book:
 
 def asks(book: Book, side: Side) -> tuple[Level, ...]:
     opposite = book.no_bids if side == Side.YES else book.yes_bids
-    return tuple(sorted((Level(ONE - x.price, x.quantity) for x in opposite), key=lambda x: x.price))
+    return tuple(\n        sorted(\n            (Level(ONE - x.price, x.quantity) for x in opposite),\n            key=lambda x: x.price,\n        )\n    )
 
 def walk(book: Book, side: Side, quantity: int) -> tuple[Decimal, Decimal, int]:
     levels = asks(book, side)
@@ -174,7 +174,7 @@ def fee(contracts: int, price: Decimal) -> Decimal:
     raw = E001.fee_coefficient * contracts * price * (ONE - price)
     return raw.quantize(CENT, rounding=ROUND_CEILING)
 
-def price_basket(books: dict[str, Book], direction: Direction, quantity: int = 10) -> dict[str, Any]:
+def price_basket(\n    books: dict[str, Book], direction: Direction, quantity: int = 10\n) -> dict[str, Any]:
     side = Side.YES if direction == Direction.ALL_YES else Side.NO
     legs = []
     for ticker, book in books.items():
@@ -194,7 +194,7 @@ def price_basket(books: dict[str, Book], direction: Direction, quantity: int = 1
     for omitted in legs:
         committed = total - omitted["cost"] - omitted["fee"]
         max_pre_final = max(max_pre_final, committed)
-        partial_floor = Decimal("0") if direction == Direction.ALL_YES else Decimal(max(n - 2, 0) * quantity)
+        partial_floor = (\n            Decimal("0")\n            if direction == Direction.ALL_YES\n            else Decimal(max(n - 2, 0) * quantity)\n        )
         worst_fail_loss = max(worst_fail_loss, max(committed - partial_floor, Decimal("0")))
     return {
         "direction": direction.value, "quantity": quantity, "legs": legs,

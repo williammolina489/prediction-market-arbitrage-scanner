@@ -1,6 +1,14 @@
 from decimal import Decimal
 from typing import Any
-from .core import Direction, InsufficientDepth, eligible_series, parse_book, price_basket, validate_partition
+
+from .core import (
+    Direction,
+    InsufficientDepth,
+    eligible_series,
+    parse_book,
+    price_basket,
+    validate_partition,
+)
 from .kalshi import Client
 
 def discover(client: Client) -> list[dict[str, Any]]:

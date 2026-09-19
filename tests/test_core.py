@@ -1,8 +1,19 @@
 from decimal import Decimal
+
 import pytest
+
 from pmarb.core import (
-    Book, Direction, InsufficientDepth, Level, SemanticsError, Side,
-    asks, fee, price_basket, validate_partition, walk,
+    Book,
+    Direction,
+    InsufficientDepth,
+    Level,
+    SemanticsError,
+    Side,
+    asks,
+    fee,
+    price_basket,
+    validate_partition,
+    walk,
 )
 
 def market(ticker, kind, floor=None, cap=None):
@@ -20,7 +31,7 @@ def market(ticker, kind, floor=None, cap=None):
     }
 
 def event(mx=True):
-    return {"event_ticker": "EVT", "mutually_exclusive": mx, "settlement_sources": [{"name": "source"}]}
+    return {\n        "event_ticker": "EVT",\n        "mutually_exclusive": mx,\n        "settlement_sources": [{"name": "source"}],\n    }
 
 def test_valid_partition():
     rel = validate_partition(event(), [

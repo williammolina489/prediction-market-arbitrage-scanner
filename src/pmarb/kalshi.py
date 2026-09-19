@@ -33,7 +33,7 @@ class Client:
         }).get("events", [])
 
     def markets(self, event_ticker: str) -> list[dict[str, Any]]:
-        return self.get("/markets", {"event_ticker": event_ticker, "status": "open"}).get("markets", [])
+        data = self.get("/markets", {"event_ticker": event_ticker, "status": "open"})\n        return data.get("markets", [])
 
     def orderbook(self, ticker: str) -> dict[str, Any]:
         return self.get(f"/markets/{ticker}/orderbook", {"depth": 100})

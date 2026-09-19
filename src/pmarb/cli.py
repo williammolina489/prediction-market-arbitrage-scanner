@@ -1,8 +1,10 @@
 import argparse
 import json
 from decimal import Decimal
+
 from .kalshi import Client
 from .scanner import discover, scan_once
+
 
 class Encoder(json.JSONEncoder):
     def default(self, obj):
