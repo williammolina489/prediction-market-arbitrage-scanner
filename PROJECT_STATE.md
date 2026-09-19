@@ -2,46 +2,81 @@
 
 Last updated: 2026-09-19
 
-## Status
-- Foundation: COMPLETE
-- Venue research: COMPLETE for minimum viable scope
-- E001: STOP / REJECT — BLOCKED / SEMANTICALLY UNPROVABLE
-- E001 data collection: NEVER STARTED
-- E001 profitability evidence: NONE COLLECTED
-- Paper execution: NOT APPROVED
-- Live execution: PROHIBITED
+# PROJECT STATUS
 
-## Authoritative decisions
-1. Kalshi only was preregistered for E001.
-2. E001 required mechanically provable daily-temperature partitions.
-3. AMENDMENT_001 required venue-authoritative proof of the final settlement lattice before any profitability collection.
-4. That proof did not succeed on 2026-09-19.
-5. Stage 2 collector development and E001 activation are therefore prohibited under the preregistered stopping rule.
-6. No real-money orders, deposits, funded execution, paper execution, or historical quote reconstruction occurred.
+**CLOSED — STRICT ARBITRAGE THESIS NOT ADVANCED**
 
-## Why E001 is blocked
-Two independent issues prevent the guaranteed-payoff proof:
+This repository is an archived research program for strict structural prediction-market arbitrage. It is not an active strategy-development project.
 
-1. Settlement-lattice proof is incomplete. Current Kalshi series metadata identifies The Weather Company as the source, but the located authoritative public material does not specify the exact final-value rounding/transformation that maps the source measurement onto the integer-looking daily-temperature buckets. Public TWC APIs demonstrate that higher decimal precision can exist in TWC data products, so integer settlement cannot be inferred from labels or ordinary display precision.
+No real-money system exists.
+No paper-execution system exists.
+No profitability experiment was ever activated.
 
-2. Current Kalshi series metadata contains an exceptional no-data rule: if no data is available by the end of the allowed period, all markets resolve to a last fair price determined by Kalshi. The located rules do not prove that this fallback preserves the fixed ALL-YES or ALL-NO basket payoff required by E001.
+## Final experiment state
 
-Either issue is sufficient to fail closed.
+### E001 — STOP / REJECT — semantic proof failed
 
-## Exact next step
-Do not build or run the E001 collector. Any move to a different category, a different relationship structure, or a redefined guarantee would require a separately documented preregistration amendment/new experiment decision before any evidence is viewed.
+E001 tested whether Kalshi daily-temperature markets could be treated as mechanically exhaustive partitions with a fixed basket payoff.
 
+It stopped before profitability collection because the required contract semantics could not be proven across the full permitted settlement state space:
 
-## E003 — Prospective Nested-Threshold Arbitrage Census
+1. the final settlement-value lattice / rounding transformation was not established; and
+2. the exceptional no-data / last-fair-price resolution did not establish preservation of the ALL-YES / ALL-NO partition payoff invariant.
 
-Status: STOP / REJECT — PAYOFF INVARIANT UNPROVABLE
-Research date: 2026-09-19
-Branch: research/e003-nested-thresholds
+No E001 profitability evidence was collected.
 
-E003 investigated same-event ordered BTC threshold contracts in Kalshi series KXBTCD. Under ordinary binary settlement, two markets with the same settlement variable and operator and thresholds L < H have the implication event(H) => event(L), so YES(lower) + NO(higher) has a minimum binary-state payoff of $1 per matched pair.
+Historical records are preserved under `research/e001/`.
 
-The full contractual state space is broader. BTC contract terms expressly permit Kalshi to initiate Market Outcome Review pursuant to Rule 6.3(c). Current Rule 6.3(c) permits Kalshi, when ordinary determination is not possible, to determine proportional payouts using the contract's last traded price or a binding fair allocation determined by the Outcome Review Committee. No authoritative rule located requires those exceptional proportional payouts to remain monotone across strikes of one KXBTCD event.
+### E002 — STOP / REJECT — prerequisite never reached
 
-For exceptional YES payouts p_L and p_H, the proposed pair pays p_L + (1 - p_H) = 1 + p_L - p_H. A $1 floor therefore requires p_L >= p_H in every permitted review outcome. That invariant is not established by the current rules.
+E002 was the separately gated paper-execution experiment that would only have been considered after an E001 pass.
 
-No E003 profitability evidence was viewed. E003 was stopped before preregistration, economic parameter selection, code implementation, collector construction, or any credential use.
+E001 never passed, so E002's gate was never reached. No paper-execution system was built or run.
+
+### E003 — STOP / REJECT — payoff invariant failed
+
+E003 investigated same-event ordered BTC threshold contracts in Kalshi series KXBTCD.
+
+Under ordinary binary settlement, the nested subset implication was established: for thresholds L < H on the same settlement variable and operator, the higher-threshold event implies the lower-threshold event.
+
+The explicit no-data state also preserved the proposed pair payoff.
+
+However, the BTC terms incorporate Kalshi Market Outcome Review under Rule 6.3(c), which permits proportional contract-level payouts. No authoritative cross-strike monotonicity guarantee was established for those exceptional payouts. Therefore the minimum $1 payoff of YES(lower) + NO(higher) could not be proven across every contractually permitted resolution state.
+
+No E003 profitability evidence was viewed.
+No E003 preregistration was created.
+No E003 collector or execution system was built.
+
+The blocker record is preserved at `research/e003/NESTED_THRESHOLD_BLOCKER.md`.
+
+## What the failures mean
+
+E001 and E003 are **contract-semantics / payoff-proof failures**.
+
+They are **not negative P/L backtests** and are not empirical evidence that prediction-market arbitrage is unprofitable.
+
+No historical or prospective profitability experiment was activated for either construction. The project therefore makes no claim that prediction-market arbitrage in general is profitable or unprofitable.
+
+The narrower conclusion is:
+
+> The two strict structural-arbitrage constructions investigated here could not establish their required guaranteed-payoff invariants across the full contractually permitted settlement state space.
+
+Accordingly, this project cannot honestly characterize those constructions as guaranteed arbitrage.
+
+## Permanent safety / execution state
+
+- No order-placement capability is authorized.
+- No authenticated trading workflow is part of this project.
+- No real money was used.
+- No deposits or withdrawals were made or enabled.
+- No paper execution was run.
+- No historical quote reconstruction or fabricated backfill was used.
+- Existing source code is historical research scaffolding only and is not an approved execution system.
+
+## Closure rule
+
+No E004 is planned.
+
+Do not convert this repository into relative-value, statistical-arbitrage, forecasting, or market-making research. Those are materially different projects.
+
+The strict-arbitrage program should only be reopened if a materially new contractual structure is identified whose bounded payoff can be proven across **all** permitted settlement states before any profitability evidence is viewed.

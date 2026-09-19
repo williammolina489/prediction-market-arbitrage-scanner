@@ -1,30 +1,38 @@
 # Roadmap
 
-## Foundation — complete
-- Current venue/API research.
-- Minimum viable venue/category selection.
-- Formal relationship and semantics model.
-- Executable-pricing and non-atomic-risk model.
-- Tests and CI.
+## Project status
 
-## E001 — STOP / REJECT
-AMENDMENT_001 could not be resolved to the standard required for a guaranteed-payoff partition. No prospective profitability evidence was collected.
+**CLOSED — STRICT ARBITRAGE THESIS NOT ADVANCED**
 
-Stage 2 collector construction is not authorized for E001.
+There is no active implementation milestone and no E004 planned.
 
-## Possible future research — requires a new decision before evidence
-A future experiment may consider a different market category or relationship structure only after a separately documented preregistration/amendment establishes an exact settlement state space and bounded payoff under exceptional settlement rules.
+## Completed research history
 
-## E002 — not reached
-Paper execution remains gated and was never authorized.
+### E001 — STOP / REJECT
+Daily-temperature exhaustive partitions failed the contract-semantics gate before profitability collection. The final settlement lattice / rounding semantics were not proven, and the exceptional no-data / fair-price resolution did not establish preservation of the required partition payoff invariant.
 
-## Deferred
-Cross-venue comparisons, fuzzy duplicates, semantic implication chains, multivariate/combo products, and any funded execution.
+### E002 — STOP / REJECT
+The planned paper-execution experiment was conditional on E001 passing. That prerequisite was never reached. No paper-execution system was built or run.
 
+### E003 — STOP / REJECT
+Nested BTC thresholds established the ordinary binary subset relation, and the explicit no-data state preserved the proposed pair payoff. The full payoff invariant nevertheless failed because Market Outcome Review under Rule 6.3(c) permits proportional contract-level payouts without an authoritative cross-strike monotonicity guarantee.
 
-## E003 — STOP / REJECT
-The proposed Prospective Nested-Threshold Arbitrage Census investigated Kalshi KXBTCD same-event BTC threshold pairs.
+## Closure boundary
 
-Normal binary settlement supports the nested-threshold implication, but the full payoff invariant could not be proven under the Market Outcome Review mechanism incorporated by the BTC contract terms. Rule 6.3(c) permits proportional settlement at a last traded price or binding fair allocation, and no cross-strike monotonicity constraint was found.
+This repository remains closed as a strict prediction-market arbitrage research program.
 
-E003 stopped before preregistration and before any profitability evidence was viewed. Do not build its collector or rescue it by changing the market universe in this session.
+Do not use it as a continuation point for:
+- E004;
+- relative-value trading;
+- statistical arbitrage;
+- forecasting;
+- market making;
+- cross-venue discretionary strategy research.
+
+Those are separate research programs.
+
+## Reopening condition
+
+Reopen only if a **materially new contractual structure** is identified and its bounded payoff can be proven across **all contractually permitted settlement states before any profitability evidence is viewed**.
+
+Until then, there are no active roadmap items.
