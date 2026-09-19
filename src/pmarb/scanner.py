@@ -32,7 +32,12 @@ def discover(client: Client) -> list[dict[str, Any]]:
 
 
 def scan_once(client: Client | None = None) -> list[dict[str, Any]]:
-    client = client or Client()
+    raise RuntimeError(
+        "E001 is PREREGISTERED, not RUNNING. "
+        "Resolve AMENDMENT_001 settlement-granularity proof and persistence first."
+    )
+
+    client = client or Client()  # pragma: no cover
     observations = []
     for rel in discover(client):
         books = {t: parse_book(client.orderbook(t)) for t in rel["market_tickers"]}

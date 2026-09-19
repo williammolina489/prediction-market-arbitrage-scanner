@@ -18,5 +18,8 @@ Last updated: 2026-09-19
 5. No real-money orders, deposits, or funded execution.
 6. E001 profitability is not evaluated before this preregistration is committed.
 
+## Blocking semantic proof before E001 may run
+AMENDMENT_001 requires venue-authoritative evidence that the final settlement value's granularity makes the structured temperature buckets collectively exhaustive on the actual settlement state space. Adjacent display labels alone are not proof. Until that evidence is recorded and encoded, live profitability scanning remains disabled.
+
 ## Next step
-Add durable append-only raw/derived observation storage and episode reconstruction, then start the frozen prospective census without changing parameters.
+Resolve and document the settlement-value granularity proof required by AMENDMENT_001, encode it as a fail-closed semantics gate, then add durable append-only raw/derived observation storage and episode reconstruction. Only after both are complete may E001 move from PREREGISTERED to RUNNING.

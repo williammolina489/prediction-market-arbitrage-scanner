@@ -14,3 +14,9 @@ ForecastEx is also regulated and exposes event-contract metadata through broker/
 Standardized daily-temperature markets in the GLOBALTEMPERATURE contract family, with Climate and Weather category, Daily temperature tag, quadratic fee type, and multiplier 1.
 
 Only observations collected after the preregistration commit may be used for E001 profitability. Foundation-time live inspection validates schema/API feasibility only.
+
+## Current weather-source conflict and fail-closed treatment
+
+A July 22, 2026 Kalshi Help Center article still describes daily-temperature settlement as using the NWS final climate report, while current Kalshi market notices and live series/event metadata show a transition to The Weather Company for current daily-temperature contracts. E001 therefore never hardcodes a settlement source from category-level help text. The current series/event/market metadata and full market rules must agree for each relationship; otherwise the event is rejected.
+
+A second unresolved foundation item is settlement-value granularity. Current market labels form apparently exhaustive two-degree ranges plus lower/upper tails, but E001 will not infer the underlying value lattice from labels alone. See research/e001/AMENDMENT_001.md.
