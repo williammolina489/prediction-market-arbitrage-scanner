@@ -135,10 +135,12 @@ def validate_partition(event: dict[str, Any], markets: list[dict[str, Any]]) -> 
     }
 
 def parse_book(payload: dict[str, Any]) -> Book:
-    raw = payload.get("orderbook") or payload
+    raw = payload.get("orderbook_fp") or payload.get("orderbook") or payload
+
     def parse(key: str) -> tuple[Level, ...]:
         out = []
-        for row in raw.get(key) or []:
+        rows = raw.get(f"{key}_dollars") or raw.get(key) or []
+        for row in rows:
             if isinstance(row, dict):
                 p = row.get("price_dollars", row.get("price"))
                 q = row.get("quantity", row.get("quantity_fp", row.get("qty", 0)))

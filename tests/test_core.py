@@ -11,6 +11,7 @@ from pmarb.core import (
     Side,
     asks,
     fee,
+    parse_book,
     price_basket,
     validate_partition,
     walk,
@@ -81,3 +82,15 @@ def test_basket_math():
     assert r["gross_edge"] == Decimal("1.00")
     assert r["slippage_reserve"] == Decimal("0.10")
     assert r["non_atomic_buffer"] == Decimal("0.20")
+
+
+def test_current_fp_orderbook_shape():
+    parsed = parse_book({
+        "orderbook_fp": {
+            "yes_dollars": [["0.4000", "12.75"]],
+            "no_dollars": [["0.5500", "9.25"]],
+        }
+    })
+    assert parsed.yes_bids[0].price == Decimal("0.4000")
+    assert parsed.yes_bids[0].quantity == 12
+    assert parsed.no_bids[0].quantity == 9
