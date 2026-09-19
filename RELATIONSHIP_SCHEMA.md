@@ -33,3 +33,25 @@ Two unresolved states break the proof:
 2. the documented no-data fallback to a Kalshi-determined last fair price.
 
 The existing integer-bucket parser is not authorization to infer a settlement lattice. It remains research scaffolding only. E001 is STOP / REJECT and the scanner's profitability path must remain blocked.
+
+
+## E003 nested-threshold SUBSET research outcome
+
+Candidate relationship:
+- one KXBTCD event;
+- same BTC/BRTI settlement variable and timestamp;
+- same threshold operator;
+- lower threshold L and higher threshold H with L < H;
+- proposed basket: YES(lower) + NO(higher).
+
+For ordinary binary settlement, the implication is mechanically valid for real-valued X: if X satisfies the higher threshold, it also satisfies the lower threshold. Decimal precision does not invalidate that implication.
+
+Proposed deterministic pair selection was ADJACENT ORDERED STRIKES ONLY, chosen before viewing profitability to avoid redundant pair searches and pseudo-replication. This was a research-universe choice, not an activated experiment parameter.
+
+Trade eligibility nevertheless FAILS because the full contract incorporates Market Outcome Review under Rule 6.3(c). Under a permitted proportional settlement, pair payout is 1 + p_L - p_H. No current authoritative rule located requires p_L >= p_H across the two reviewed contracts.
+
+Therefore:
+- subset implication under normal binary states: PROVEN;
+- $1 minimum pair payoff across every permitted resolution state: NOT PROVEN;
+- E003 trade eligibility: REJECTED;
+- no E003 preregistration or collector is authorized.

@@ -51,3 +51,57 @@ What is NOT established to E001's required standard:
 The Weather Company public API documentation is not treated as proof of the Kalshi settlement feed's value lattice. Its decimal-precision option is used only to demonstrate why integer settlement cannot be inferred from generic TWC display examples.
 
 Conclusion: AMENDMENT_001 FAILS CLOSED. E001 may not proceed to Stage 2.
+
+
+## E003 BTC nested-threshold research — 2026-09-19
+
+### Candidate family
+
+Current Kalshi series API:
+- Series ticker: KXBTCD
+- Title: Bitcoin price Above/below
+- Category: Crypto
+- Frequency: hourly
+- Tags: Hourly, BTC
+- Contract terms: https://assets.kalshi.com/contract_terms/BTC.pdf
+- Fee type: quadratic
+- Fee multiplier: 1
+- Settlement source: CF Benchmarks
+- Settlement-source index: CF Bitcoin Real-Time Index (BRTI)
+- Series metadata states that 60 RTI prices are collected during the last minute before expiration and the official/final value is their average.
+
+Kalshi's current Crypto Markets help independently states that crypto event contracts use 60 one-second CF Benchmarks RTI readings during the relevant expiration minute and average those readings.
+
+### BTC contract terms
+
+The current BTC contract terms define the Underlying as the USD spot price of one Bitcoin at the specified time according to a simple average of BRTI for the prior 60 seconds. Revisions after Expiration are ignored.
+
+The terms support recurring iterations, price levels in $0.01 increments over the stated range, above/below/between payout criteria, a $0.01 contract tick, a $1.00 Settlement Value, and market-specific date/time placeholders.
+
+If no data is available on the Expiration Date at the Expiration Time, the market resolves No. That specific no-data rule alone would preserve the proposed pair's $1 floor because both threshold markets resolving No makes YES(lower)=0 and NO(higher)=1.
+
+However, the same BTC terms also state that, before settlement, Kalshi may at its sole discretion initiate Market Outcome Review under Rule 6.3(c).
+
+### Rulebook exceptional settlement
+
+Current Kalshi Rulebook v1.24 Rule 6.3(c) permits non-binary proportional payout when Kalshi cannot determine whether an Expiration Value falls within the Payout Criterion (or what payout proportion applies). It permits:
+- use of the Contract's last traded price as the payout; or
+- if that price is unavailable or deemed unfair, a binding fair allocation determined by the Outcome Review Committee.
+
+The current materials located do not impose a cross-strike monotonicity invariant on these exceptional payout values.
+
+For the proposed lower-YES / higher-NO pair, let p_L be the exceptional YES payout on the lower strike and p_H the exceptional YES payout on the higher strike. Total pair payout is:
+
+    p_L + (1 - p_H) = 1 + p_L - p_H
+
+The preregistered-style guarantee would require p_L >= p_H for every permitted exceptional resolution. That is not established. Therefore a minimum $1 payout cannot be proven across the complete permitted settlement state space.
+
+### Market/API mechanics noted before stop
+
+- Current KXBTCD pages show many simultaneous ordered threshold strikes within an hourly event.
+- BTC contract terms specify $0.01 minimum tick.
+- Current API orderbook documentation returns YES and NO bids; an ask on one side is the $1 complement of an opposite-side bid with the same quantity.
+- Current orderbook documentation examples include API authentication headers. No credentials were added because E003 failed its contractual proof first.
+- Current API rate-limit documentation uses separate Read/Write token budgets for authenticated requests; Basic event-contract tier lists a 200 token/second Read budget and 100 token/second Write budget, with most requests defaulting to 10 tokens unless an endpoint-specific cost applies.
+
+No opportunity prices, historical returns, or pair profitability were evaluated.
