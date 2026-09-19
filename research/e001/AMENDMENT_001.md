@@ -30,3 +30,14 @@ If this cannot be established mechanically and durably, the relationship is inel
 - No economic threshold, cost assumption, or promotion criterion is relaxed.
 
 This amendment preserves the project's fail-closed principle and preference for false negatives over semantic false positives.
+
+
+## Resolution — 2026-09-19
+
+Outcome: FAILED CLOSED.
+
+The required authoritative proof was not obtained. Current Kalshi series metadata names The Weather Company as the settlement source but does not establish the final settlement value's exact lattice or rounding/transformation. Located Kalshi materials explicitly warn about rounding/conversion differences between preliminary and final Weather Company values without specifying the required transformation.
+
+In addition, the current series metadata includes an exceptional no-data rule under which all markets resolve to a last fair price determined by Kalshi. No located authoritative rule proves that this state preserves the fixed basket payoff assumed by E001.
+
+Because either defect is sufficient to invalidate a guaranteed exhaustive-partition claim, E001 is STOP / REJECT — BLOCKED / SEMANTICALLY UNPROVABLE. No E001 profitability observations were collected, and Stage 2 is not authorized.

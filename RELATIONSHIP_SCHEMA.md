@@ -22,3 +22,14 @@ Each relationship receives a deterministic fingerprint. Episode identity is venu
 AMENDMENT_001 tightens the partition proof before any E001 observation is collected. A venue-authoritative source must establish that the final settlement value is reported/resolved on a granularity compatible with the proposed bucket boundaries. The scanner may not infer exhaustiveness merely because labels look adjacent.
 
 Until that proof is encoded, discovered temperature groups are structural candidates only and live profitability scanning is disabled.
+
+
+## AMENDMENT_001 outcome
+
+The required settlement-state proof was not established. Therefore no daily-temperature relationship is trade-eligible under E001, even when its displayed labels appear adjacent and the event is marked mutually exclusive.
+
+Two unresolved states break the proof:
+1. decimal/rounding ambiguity in the final settlement value;
+2. the documented no-data fallback to a Kalshi-determined last fair price.
+
+The existing integer-bucket parser is not authorization to infer a settlement lattice. It remains research scaffolding only. E001 is STOP / REJECT and the scanner's profitability path must remain blocked.
