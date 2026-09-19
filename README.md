@@ -18,11 +18,10 @@ The project is deliberately closer to a theorem checker plus market-microstructu
 ```bash
 python -m pip install -e '.[dev]'
 pmarb validate-live
-pmarb scan-once
 pytest
 ruff check .
 ```
 
-`scan-once` is observational only. It never sends orders.
+`validate-live` performs read-only market discovery/metadata validation. `scan-once` is intentionally blocked while E001 remains PREREGISTERED; it will not be enabled until AMENDMENT_001's settlement-granularity proof and the persistence layer are complete. No trading endpoint exists.
 
 See `research/e001/PREREGISTRATION.md` before changing any E001 parameter.
