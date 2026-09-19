@@ -1,8 +1,10 @@
 import time
 from typing import Any
+
 import httpx
 
 BASE = "https://external-api.kalshi.com/trade-api/v2"
+
 
 class Client:
     """Public GET-only client. Trading methods intentionally do not exist."""
@@ -33,7 +35,8 @@ class Client:
         }).get("events", [])
 
     def markets(self, event_ticker: str) -> list[dict[str, Any]]:
-        data = self.get("/markets", {"event_ticker": event_ticker, "status": "open"})\n        return data.get("markets", [])
+        data = self.get("/markets", {"event_ticker": event_ticker, "status": "open"})
+        return data.get("markets", [])
 
     def orderbook(self, ticker: str) -> dict[str, Any]:
         return self.get(f"/markets/{ticker}/orderbook", {"depth": 100})

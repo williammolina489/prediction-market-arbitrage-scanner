@@ -11,6 +11,7 @@ from .core import (
 )
 from .kalshi import Client
 
+
 def discover(client: Client) -> list[dict[str, Any]]:
     out = []
     for stub in client.series_list("Climate and Weather"):
@@ -28,6 +29,7 @@ def discover(client: Client) -> list[dict[str, Any]]:
             except ValueError:
                 continue
     return out
+
 
 def scan_once(client: Client | None = None) -> list[dict[str, Any]]:
     client = client or Client()

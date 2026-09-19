@@ -17,6 +17,7 @@ from pmarb.core import (
     walk,
 )
 
+
 def market(ticker, kind, floor=None, cap=None):
     return {
         "ticker": ticker, "event_ticker": "EVT", "series_ticker": "SER",
@@ -31,8 +32,14 @@ def market(ticker, kind, floor=None, cap=None):
         "price_level_structure": "linear_cent", "status": "active",
     }
 
+
 def event(mx=True):
-    return {\n        "event_ticker": "EVT",\n        "mutually_exclusive": mx,\n        "settlement_sources": [{"name": "source"}],\n    }
+    return {
+        "event_ticker": "EVT",
+        "mutually_exclusive": mx,
+        "settlement_sources": [{"name": "source"}],
+    }
+
 
 def test_valid_partition():
     rel = validate_partition(event(), [

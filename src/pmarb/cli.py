@@ -12,6 +12,7 @@ class Encoder(json.JSONEncoder):
             return str(obj)
         return super().default(obj)
 
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Read-only E001 structural scanner")
     sub = parser.add_subparsers(dest="cmd", required=True)

@@ -9,6 +9,7 @@ CENT = Decimal("0.01")
 ONE = Decimal("1")
 
 @dataclass(frozen=True)
+
 class Config:
     min_legs: int = 3
     max_legs: int = 8
@@ -19,29 +20,36 @@ class Config:
     fee_coefficient: Decimal = Decimal("0.07")
 E001 = Config()
 
+
 class Side(StrEnum):
     YES = "yes"
     NO = "no"
+
 
 class Direction(StrEnum):
     ALL_YES = "all_yes"
     ALL_NO = "all_no"
 
+
 class SemanticsError(ValueError):
     pass
+
 
 class InsufficientDepth(ValueError):
     pass
 
 @dataclass(frozen=True)
+
 class Level:
     price: Decimal
     quantity: int
 
 @dataclass(frozen=True)
+
 class Book:
     yes_bids: tuple[Level, ...]
     no_bids: tuple[Level, ...]
+
 
 def eligible_series(series: dict[str, Any]) -> bool:
     return (
@@ -52,6 +60,7 @@ def eligible_series(series: dict[str, Any]) -> bool:
         and Decimal(str(series.get("fee_multiplier", 0))) == Decimal("1")
     )
 
+
 def _integer(value: Any, name: str) -> int:
     if value is None:
         raise SemanticsError(f"missing {name}")
@@ -59,6 +68,7 @@ def _integer(value: Any, name: str) -> int:
     if d != d.to_integral_value():
         raise SemanticsError(f"{name} is not integer-valued")
     return int(d)
+
 
 def _interval(m: dict[str, Any]) -> tuple[int | None, int | None]:
     kind = str(m.get("strike_type") or "").lower()
@@ -73,6 +83,7 @@ def _interval(m: dict[str, Any]) -> tuple[int | None, int | None]:
             raise SemanticsError("inverted between range")
         return lo, hi
     raise SemanticsError("unsupported strike type")
+
 
 def validate_partition(event: dict[str, Any], markets: list[dict[str, Any]]) -> dict[str, Any]:
     if not event.get("mutually_exclusive"):
@@ -134,6 +145,7 @@ def validate_partition(event: dict[str, Any], markets: list[dict[str, Any]]) -> 
         "fingerprint": fingerprint,
     }
 
+
 def parse_book(payload: dict[str, Any]) -> Book:
     raw = payload.get("orderbook_fp") or payload.get("orderbook") or payload
 
@@ -152,9 +164,16 @@ def parse_book(payload: dict[str, Any]) -> Book:
         return tuple(out)
     return Book(parse("yes"), parse("no"))
 
+
 def asks(book: Book, side: Side) -> tuple[Level, ...]:
     opposite = book.no_bids if side == Side.YES else book.yes_bids
-    return tuple(\n        sorted(\n            (Level(ONE - x.price, x.quantity) for x in opposite),\n            key=lambda x: x.price,\n        )\n    )
+    return tuple(
+        sorted(
+            (Level(ONE - x.price, x.quantity) for x in opposite),
+            key=lambda x: x.price,
+        )
+    )
+
 
 def walk(book: Book, side: Side, quantity: int) -> tuple[Decimal, Decimal, int]:
     levels = asks(book, side)
@@ -172,11 +191,15 @@ def walk(book: Book, side: Side, quantity: int) -> tuple[Decimal, Decimal, int]:
             break
     return cost, worst, available
 
+
 def fee(contracts: int, price: Decimal) -> Decimal:
     raw = E001.fee_coefficient * contracts * price * (ONE - price)
     return raw.quantize(CENT, rounding=ROUND_CEILING)
 
-def price_basket(\n    books: dict[str, Book], direction: Direction, quantity: int = 10\n) -> dict[str, Any]:
+
+def price_basket(
+    books: dict[str, Book], direction: Direction, quantity: int = 10
+) -> dict[str, Any]:
     side = Side.YES if direction == Direction.ALL_YES else Side.NO
     legs = []
     for ticker, book in books.items():
@@ -196,7 +219,11 @@ def price_basket(\n    books: dict[str, Book], direction: Direction, quantity: i
     for omitted in legs:
         committed = total - omitted["cost"] - omitted["fee"]
         max_pre_final = max(max_pre_final, committed)
-        partial_floor = (\n            Decimal("0")\n            if direction == Direction.ALL_YES\n            else Decimal(max(n - 2, 0) * quantity)\n        )
+        partial_floor = (
+            Decimal("0")
+            if direction == Direction.ALL_YES
+            else Decimal(max(n - 2, 0) * quantity)
+        )
         worst_fail_loss = max(worst_fail_loss, max(committed - partial_floor, Decimal("0")))
     return {
         "direction": direction.value, "quantity": quantity, "legs": legs,
